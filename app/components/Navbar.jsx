@@ -1,10 +1,12 @@
 import { assets } from '@/assets/assets'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 
 const Navbar = ({isDarkMode, setIsDarkMode}) => {
 
   const [isScroll, setIsScroll] = useState(false)
+  const router = useRouter()
   const sideMenuRef = useRef();
   const openMenu = () => {
     sideMenuRef.current.style.transform = 'translateX(-16rem)'
@@ -41,6 +43,7 @@ const Navbar = ({isDarkMode, setIsDarkMode}) => {
           <li><a className=' font-Ovo' href="#about">About us</a></li>
           <li><a className=' font-Ovo' href="#services">Services</a></li>
           <li><a className=' font-Ovo' href="#work">My work</a></li>
+          <li><a onClick={()=>{router.push("/blogs")}} className=' font-Ovo' href="#contact">Blogs</a></li>
           <li><a className=' font-Ovo' href="#contact">Contact me</a></li>
         </ul>
         <div className='flex items-center gap-4'>
