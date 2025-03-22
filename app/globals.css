@@ -1,7 +1,75 @@
+/* Add these styles to your globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 *{
   font-family: Outfit;
+}
+
+/* Form Styles */
+.form-container {
+  @apply bg-white dark:bg-darkHover rounded-lg shadow-lg p-8 max-w-4xl mx-auto;
+}
+
+.form-input {
+  @apply mt-1 block w-full rounded-lg border border-gray-300 dark:border-gray-600 
+  px-4 py-3 bg-white dark:bg-darkTheme text-gray-900 dark:text-white
+  focus:ring-2 focus:ring-blue-500 focus:border-transparent
+  shadow-sm transition-colors duration-200;
+}
+
+.form-label {
+  @apply block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2;
+}
+
+.form-button-primary {
+  @apply px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium
+  rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md
+  dark:bg-blue-500 dark:hover:bg-blue-600;
+}
+
+.form-button-secondary {
+  @apply px-6 py-2.5 bg-white hover:bg-gray-50 text-gray-700 font-medium
+  rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md
+  border border-gray-300 dark:border-gray-600 dark:bg-darkTheme 
+  dark:text-gray-200 dark:hover:bg-gray-800;
+}
+
+.quill {
+  background-color: white;
+}
+
+.dark .quill {
+  background-color: #11001F;
+}
+
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+  border-color: #e2e8f0;
+}
+
+.dark .ql-toolbar.ql-snow,
+.dark .ql-container.ql-snow {
+  border-color: #4a5568;
+}
+
+.dark .ql-snow .ql-stroke {
+  stroke: #fff;
+}
+
+.dark .ql-snow .ql-fill {
+  fill: #fff;
+}
+
+.dark .ql-snow .ql-picker {
+  color: #fff;
+}
+
+.dark .ql-snow .ql-picker-options {
+  background-color: #2a004a;
+}
+
+.ql-editor {
+  min-height: 200px;
 }

@@ -1,9 +1,24 @@
-import { assets, serviceData } from "@/assets/assets";
+import { assets } from '@/assets/assets';
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const Services = () => {
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    fetchServices();
+  }, []);
+
+  const fetchServices = async () => {
+    try {
+      const response = await fetch('/api/services');
+      const data = await response.json();
+      setServices(data);
+    } catch (error) {
+      console.error('Error fetching services:', error);
+    }
+  };
   const rowVariants = {
     hidden: { opacity: 0, x: -150 },
     visible: {
@@ -37,7 +52,7 @@ const Services = () => {
   };
 
   return (
-    <div id="services" className="w-full px-[12%] py-10 scroll-mt-20">
+    <div id="services" className="w-full px-[5%] py-10 scroll-mt-20">
       <h4 className="text-center mb-2 text-lg font-Ovo">What we Offer</h4>
       <h2 className="text-center text-5xl font-Ovo">Our Services</h2>
       <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo">
@@ -45,7 +60,7 @@ const Services = () => {
         investors, regulators, and management through our:
       </p>
       <div className="my-10">
-        {Array.from({ length: Math.ceil(serviceData.length / 4) }).map(
+        {Array.from({ length: Math.ceil(services.length / 4) }).map(
           (_, rowIndex) => (
             <motion.div
               key={rowIndex}
@@ -55,30 +70,42 @@ const Services = () => {
               viewport={{ once: true, amount: 0.3 }}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6"
             >
-              {serviceData
+              {services
                 .slice(rowIndex * 4, rowIndex * 4 + 4)
-                .map(({ icon, title, description, link }, index) => (
-                  <div 
-                    key={index}
-                    className="border border-gray-400 rounded-lg px-8 py-12 hover:shadow-black
-                         cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 
-                         dark:hover:bg-darkHover dark:hover:shadow-white"
+                .map((service, index) => (
+                  <div
+                    key={service._id}
+                    className="max-w-sm mx-auto overflow-hidden bg-white dark:bg-[#1c0831] rounded-lg shadow-md"
                   >
-                    <Image src={icon} alt="" className="w-10" />
-                    <h3 className="text-lg my-4 text-gray-700 dark:text-white">
-                      {title}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-5 dark:text-white/80">
-                      {description}
-                    </p>
-
-                    <a
-                      href={link}
-                      className="flex items-center gap-2 text-sm mt-5"
-                    >
-                      Read more{" "}
-                      <Image alt="" src={assets.right_arrow} className="w-4" />
-                    </a>
+                    <div className="relative h-64 w-full">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-6 text-center">
+                      <h2 className="mb-4 text-2xl font-bold text-gray-800 dark:text-white">
+                        {service.title}
+                      </h2>
+                      <p className="mb-6 text-gray-600 dark:text-white">
+                        {service.description}
+                      </p>
+                      <div className="flex items-center justify-center transition-all duration-200 hover:bg-[#1c0831] dark:hover:bg-white group">
+                        <a
+                          href="#"
+                          className="flex items-center text-[#1c0831] transition-colors group-hover:text-white dark:group-hover:text-[#1c0831]"
+                        >
+                          <span className="mr-2 font-medium">EXPLORE MORE</span>
+                          <Image
+                            alt="right"
+                            className="ml-2"
+                            src={assets.right_arrow}
+                          />
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 ))}
             </motion.div>
